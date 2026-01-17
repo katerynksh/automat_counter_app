@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .body
+    h1.title #{title}
+
+    p.content Enter student name to find details:    
+    input.input(type="text" name="name" placeholder="Enter student name:")
+    button.button(type="find") Find
+    
+    br
+
+    p.content If you can't find a student, you can navigate to the 
+      <a href="/cnt">Counter Page</a> to enter student details:
+    

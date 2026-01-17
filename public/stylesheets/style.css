@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* COLOR PALETTE
+  pink (headers, links): #f38da2
+  bright pink (title): #e56d85
+  light pink (hover): #ffb9c7
+  very light pink (button's background): #ffd8e0
+  ultra light pink (background): #fdf0f3
+  dark pink (border): #bf3853
+  very dark red (text): #661021
+*/
+
+.body {
+  background-color: #fdf0f3;
+  border: 3px solid #bf3853;
+  width: auto;
+  padding: 20px;
+  margin: 30px 100px auto;
+  font-family: monospace;
+  border-radius: 25px;
+}
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #e56d85;
+  font-size: 55px;
+}
+.header {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 30px;
+  color: #f38da2;
+}
+.content {
+  font-size: 25px;
+  margin-top: 20px;
+  color: #661021;
+}
+.label {
+  margin-top: 5px;
+  border: 0;
+  outline: 0;
+  font-size: 20px;
+  color: #661021;
+  background-color: #fdf0f3;
+  font-family: monospace;
+}
+.input {
+  width: 45%;
+  margin-top: 20px;
+  border: 0;
+  outline: 0;
+  border-bottom: 2px solid #bf3853;
+  font-size: 25px;
+  color: #661021;
+  background-color: #fdf0f3;
+  font-family: monospace;
+}
+.button {
+  text-align: center;
+  background-color:  #ffd8e0;
+  border: 2px solid #bf3853;
+  padding: 10px 20px;
+  margin: 10px 15px;
+  border-radius: 25px;
+  font-size: 25px;
+  font-family: monospace;
+  color: #661021;
+  cursor: pointer;
+  &:hover {
+    background-color: #ffb9c7;
+  }
+}
+
+
+/* Style for links: */
+a {
+  color: #f38da2;
+  &:hover {
+    color: #ffb9c7;
+  }
+  }
+
+
+/* button {
+  background-color: rgb(224, 149, 185);
+  color: white;
+  font-size: 25px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(216, 76, 144);
+  }
+} */

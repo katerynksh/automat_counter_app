@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  .body    
+    h1.title #{title}
+    p.content Please enter your student details below: 
+
+    p.form(action="cnt", method="post")
+      label.label(for="name") Name: 
+      input.input(type="text", name="stud_name", id="name")
+      br
+
+      label.label(for="surname") Surname: 
+      input.input(type="text", name="stud_surname", id="surname")
+      br
+
+      label.label(for="specialty") Specialty: 
+      input.input(type="text", name="stud_specialty", id="specialty")
+      br
+
+      label.label(for="group") Group: 
+      input.input(type="text", name="stud_group", id="group")
+      br
+
+      label.label(for="marks") Marks (comma-separated): 
+      input.input(type="text", name="stud_marks", id="marks")
+      br
+      button.button(type="submit") Submit
+
+  
