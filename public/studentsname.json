@@ -1,6 +1,8 @@
 [
   {
-    "name": "Вася",
+    "fullName": "Василь",
+    "shortName": "Вася",
+    "fullNameSurname": "Василь Пупкін",
     "surname": "Пупкін",
     "specialty": "Комп'ютерні науки",
     "group": "ІПЗс-25-1",
@@ -8,11 +10,47 @@
     "additionalInfo": "Любить програмування"
   },
   {
-    "name": "Катя",
+    "fullName": "Катерина",
+    "shortName": "Катя",
+    "fullNameSurname": "Катерина Шерепера",
+    "shortNameSurname": "Катя Шерепера",
     "surname": "Шерепера",
     "specialty": "Інженерія програмного забезпечення",
     "group": "ІПЗс-25-1",
     "yearOfStudy": "1",
     "additionalInfo": "Йожикова мама"
+  },
+  {
+    "fullName": "Анастасія",
+    "shortName": "Настя",
+    "fullNameSurname": "Анастасія Шерепера",
+    "shortNameSurname": "Настя Шерепера",
+    "surname": "Шерепера",
+    "specialty": "Облік та аудит",
+    "group": "лалала-22-1",
+    "yearOfStudy": "12",
+    "additionalInfo": "Йожикова бабушка"
+  },
+  {
+    "fullName": "Інна",
+    "shortName": "Інна",
+    "fullNameSurname": "Інна Лопушинська",
+    "shortNameSurname": "Інна Лопушинська",
+    "surname": "Лопушинська",
+    "specialty": " ",
+    "group": "люлюлю",
+    "yearOfStudy": "10",
+    "additionalInfo": "Йожикова бабушка"
+  },
+  {
+    "fullName": "Богдан",
+    "shortName": "Богдан",
+    "fullNameSurname": "Богдан Лопушинський",
+    "shortNameSurname": "Богдан Лопушинський",
+    "surname": "Лопушинський",
+    "specialty": "Менеджмент",
+    "group": "БПс-25-1",
+    "yearOfStudy": "2",
+    "additionalInfo": "Йожиковий папа"
   }
 ]
