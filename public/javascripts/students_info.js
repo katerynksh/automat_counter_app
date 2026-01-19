@@ -9,6 +9,7 @@ const yearOfStudyField = document.querySelector('#year-of-study');
 const additionalInfoField = document.querySelector('#additional-info');
 
 
+
 const fs = require('fs');
 // import fs from 'fs';
 findButton.onclick = function() {
