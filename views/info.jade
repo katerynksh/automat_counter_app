@@ -3,31 +3,57 @@ extends layout
 block content
   .body    
     h1.title #{title}
-    p.content Please enter your student details below: 
+    
+    if error
+      .error-message(style="color: #bf3853; background-color: #ffd8e0; padding: 10px; margin: 10px 0; border-radius: 5px; border: 2px solid #bf3853;")
+        strong ⚠️ Error: 
+        | #{error}
+    
+    if success
+      .success-message(style="color: #2d5016; background-color: #d4edda; padding: 10px; margin: 10px 0; border-radius: 5px; border: 2px solid #28a745;")
+        strong ✅ Success: 
+        | #{success}
+    
+    p.content Please enter student details below: 
 
-    p.form(action="info", method="post")
-      label.label(for="name") Name: 
-      input.input(type="text", name="stud_name", id="name")
+    form(action="/info", method="post")
+      label.label(for="name") Full Name:
+        br
+        input.input(type="text", name="stud_name", id="name", required, placeholder="Іван")
+      br
       br
 
-      label.label(for="surname") Surname: 
-      input.input(type="text", name="stud_surname", id="surname")
+      label.label(for="surname") Surname:
+        br
+        input.input(type="text", name="stud_surname", id="surname", required, placeholder="Петренко")
+      br
       br
 
-      label.label(for="specialty") Specialty: 
-      input.input(type="text", name="stud_specialty", id="specialty")
+      label.label(for="specialty") Specialty:
+        br
+        input.input(type="text", name="stud_specialty", id="specialty", required, placeholder="Комп'ютерні науки")
+      br
       br
 
-      label.label(for="group") Group: 
-      input.input(type="text", name="stud_group", id="group")
+      label.label(for="group") Group:
+        br
+        input.input(type="text", name="stud_group", id="group", required, placeholder="ІПЗс-25-1")
+      br
       br
 
-      label.label(for="year") Year of Study: 
-      input.input(type="number", name="stud_year", id="year" min="1" max="6")
+      label.label(for="year") Year of Study (1-6):
+        br
+        input.input(type="number", name="stud_year", id="year", min="1", max="6", required, placeholder="1")
+      br
       br
 
-      label.label(for="additional") Additional Info: 
-      textarea.textarea(name="stud_additional", id="additional" rows="4" cols="30")
+      label.label(for="additional") Additional Info:
+        br
+        textarea.textarea(name="stud_additional", id="additional", rows="4", cols="30", placeholder="Optional notes...")
+      br
       br
 
-      button.button(type="submit") Submit 
+      button.button(type="submit") Submit
+      
+    p.content
+      a(href="/") ← Back to Search

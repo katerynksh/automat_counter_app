@@ -3,12 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const { initializeDatabase } = require('./db');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var informationRouter = require('./routes/info');
 
 var app = express();
+
+// Initialize database on startup
+initializeDatabase().catch(err => {
+  console.error('Failed to initialize database:', err);
+  process.exit(1);
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

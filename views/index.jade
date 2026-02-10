@@ -7,9 +7,8 @@ block content
 
     p.content Enter student name to find details:    
     input.input.student(type="text" name="name" placeholder="Enter student name:")
-    button.button.findbutton(type="find") Find
+    button.button.findbutton(type="button") Find
 
-            //- p.content Student Details:
     pre.information Student Details:
       #student-name 
       #student-surname  
@@ -17,6 +16,7 @@ block content
       #student-group 
       #year-of-study  
       #additional-info  
-    p.content If you can't find a student, you can navigate to the 
-      <a href="/info">Student Information Page</a> to enter student details:
     
+    p.content If you can't find a student, you can navigate to the 
+      a(href="/info") Student Information Page
+      |  to enter student details.
