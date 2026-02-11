@@ -1,67 +1,105 @@
-console.log(`_____________________________________`);
-/*
-var prompt = require('prompt');
-
-prompt.start();
- 
-prompt.get(['name', 'surname', 'specialty', 'group', 'marks'], function (err, result) {
-  if (err) { return onErr(err); }
-  
-  const student = {
-    properties: {
-      name: { description: "Ім'я", required: true },
-      surname: { description: "Прізвище", required: true },
-      specialty: { description: "Спеціальність", required: true },
-      group: { description: "Група", required: true },
-      marks: { description: "Оцінки (через кому)", required: true },
-    }
-  };
-
-  const average = student.marks.reduce((sum, marks) => sum + marks, 0) / student.marks.length;
-  const fixedAverage = average.toFixed(2);
-  const markAutomat = Math.round(fixedAverage);
-  const marks = student.marks.join(', ')
-
-  console.log("Ім'я:" + student.name);
-  console.log("Прізвище: " + student.surname);
-  console.log("Спеціальність: " + student.specialty);
-  console.log("Група: " + student.group);
-  console.table("Оцінки: " + marks);
-  console.log("Середня оцінка: " + fixedAverage);
-  console.log("Автомат: " + markAutomat);
-});
-*/
-
-
 var express = require('express');
 var router = express.Router();
+const db = require('../db');
 
 /* GET info page. */
 router.get('/', function(req, res, next) {
-  //res.send('Automat counter');
-  console.log("req.method: " +  req.method);
+  console.log("req.method: " + req.method);
   console.log("req.path: " + req.path);
   console.log("req.url: " + req.url);
-  console.log("req.statusCode: " + req.statusCode);
   console.log("req.baseUrl: " + req.baseUrl);
-  res.render('info', {title: 'Student Information Page'});
-//сторінка cnt для вводу даних студента
-//  res.render('cnt', { showAlert: true, alertMessage: "Welcome to Automat counter page!" });
-});
   
-router.post('/', function(req, res, next) {
-  var st_name=req.body.stud_name;
-  var st_surname=req.body.stud_surname;
-  var st_specialty=req.body.stud_specialty;
-  var st_group=req.body.stud_group;
-  var st_marks=req.body.stud_marks;
-  console.log("Student Name: " + st_name);
-  console.log("Student Surname: " + st_surname);
-  console.log("Student Specialty: " + st_specialty);
-  console.log("Student Group: " + st_group);
-  console.log("Year of Study: " + req.body.stud_year);
-  console.log("Additional Info: " + req.body.stud_additional);
+  res.render('info', { 
+    title: 'Student Information Page',
+    error: null,
+    success: null
+  });
+});
+
+/* POST - Create new student */
+router.post('/', async function(req, res, next) {
+  const { stud_name, stud_surname, stud_specialty, stud_group, stud_year, stud_additional } = req.body;
+  
+  console.log('📝 Creating new student...');
+  console.log('Request body:', req.body);
+  
+  // Validation
+  if (!stud_name || !stud_surname || !stud_specialty || !stud_group || !stud_year) {
+    console.log('❌ Validation failed: Missing required fields');
+    return res.render('info', {
+      title: 'Student Information Page',
+      error: 'All fields except Additional Info are required!',
+      success: null
+    });
+  }
+
+  const yearNum = parseInt(stud_year);
+  if (isNaN(yearNum) || yearNum < 1 || yearNum > 6) {
+    console.log('❌ Validation failed: Invalid year');
+    return res.render('info', {
+      title: 'Student Information Page',
+      error: 'Year of Study must be between 1 and 6!',
+      success: null
+    });
+  }
+
+  try {
+    // Generate short name (first word of full name)
+    const shortName = stud_name.split(' ')[0];
+
+    console.log('💾 Inserting into database...');
+    
+    // Insert student into database
+    const insertQuery = `
+      INSERT INTO students (full_name, short_name, surname, specialty, group_name, year_of_study, additional_info)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
+      RETURNING id, full_name, surname;
+    `;
+    
+    const result = await db.query(insertQuery, [
+      stud_name,
+      shortName,
+      stud_surname,
+      stud_specialty,
+      stud_group,
+      yearNum,
+      stud_additional || ''
+    ]);
+
+    console.log('✅ Student created successfully:', result.rows[0]);
+    console.log("Student Name: " + stud_name);
+    console.log("Student Surname: " + stud_surname);
+    console.log("Student Specialty: " + stud_specialty);
+    console.log("Student Group: " + stud_group);
+    console.log("Year of Study: " + stud_year);
+    console.log("Additional Info: " + stud_additional);
+
+    res.render('info', {
+      title: 'Student Information Page',
+      error: null,
+      success: `Student ${result.rows[0].full_name} ${result.rows[0].surname} successfully added! ID: ${result.rows[0].id}`
+    });
+
+  } catch (error) {
+    console.error('❌ Error creating student:', error.message);
+    console.error('Error code:', error.code);
+    console.error('Full error:', error);
+    
+    // Check for duplicate entry or other database errors
+    if (error.code === '23505') { // Unique violation
+      res.render('info', {
+        title: 'Student Information Page',
+        error: 'A student with this information already exists!',
+        success: null
+      });
+    } else {
+      res.render('info', {
+        title: 'Student Information Page',
+        error: `Database error: ${error.message}`,
+        success: null
+      });
+    }
+  }
 });
 
 module.exports = router;
-
